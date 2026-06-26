@@ -2,23 +2,80 @@
 
 An advanced Chrome Extension designed to boost productivity and focus while studying or taking courses on YouTube. It injects a draggable, floating control panel directly onto YouTube video pages, allowing you to take timestamped notes, manage a Pomodoro timer, toggle Focus Mode, and customize settings without leaving your video.
 
-![YouTube Study Companion Screenshot](https://raw.githubusercontent.com/your-username/youtube-study-companion/main/assets/screenshot.png) *(Replace this with a screenshot of your working extension!)*
+<p align="center"> 
+  <img width="1041" height="356" alt="Screenshot 2026-06-26 143904" src="https://github.com/user-attachments/assets/12f542af-8848-4fb2-99a6-b83346cb2071" />
+</p>
+
+
+<!-- <img width="435" height="612" alt="image" src="https://github.com/user-attachments/assets/1008aca9-d9de-41d0-9d3c-f3ed3c5c62bd" />
+<img width="425" height="616" alt="image" src="https://github.com/user-attachments/assets/bad07d40-c745-4873-81b7-392fad70af6d" /> -->
+
+
+
+
+
 
 ## 🚀 Key Features
 
 *   **📍 Timestamped Note-Taking:** Type notes with instant timestamp integration. Clicking on a note's timestamp seeks the YouTube video directly to that moment. Notes can be edited and deleted.
+
+<p align="center">
+  <img width="1907" height="910" alt="image" src="https://github.com/user-attachments/assets/c38d79f7-31de-463b-b81f-6e0fd2ca5b70" />
+</p>
+
+
 *   **⏱️ Pomodoro Timer:** A customizable study/break timer to keep you on track, integrated into the floating panel.
 *   **👁️ Focus Mode:** Toggle to clean up the YouTube interface by hiding distracting elements like the recommendation sidebar, comments, and homepage feed, keeping your focus purely on the lecture.
+
+<table>
+<tr>
+<td align="center">
+
+### ⏱ Pomodoro Timer
+<img width="400" height="500" alt="image" src="https://github.com/user-attachments/assets/bad07d40-c745-4873-81b7-392fad70af6d" />
+
+
+</td>
+
+<td align="center">
+
+### 🎯 Focus Mode
+<img width="400" height="500" alt="image" src="https://github.com/user-attachments/assets/1008aca9-d9de-41d0-9d3c-f3ed3c5c62bd" />
+
+</td>
+</tr>
+</table>
+
+
 *   **🎛️ Drag-and-Drop Panel:** Smooth, interactive floating UI that can be repositioned anywhere on the screen so it never blocks your view.
 *   **🎨 Custom Premium Styling:** Built with Tailwind CSS and fully isolated using **Shadow DOM** to prevent CSS leakage or pollution between YouTube's stylesheets and the extension.
 
-## 🛠️ Technical Architecture
+## 🛠️ System Architecture
 
-This project is a modern React application built as a Chrome Extension content script, resolving common architectural challenges:
-
-1.  **Shadow DOM Isolation:** To prevent YouTube's global styles from corrupting the extension's UI (and vice-versa), the entire React application is mounted inside a Shadow Root. Tailwind CSS styles are compiled and injected directly into the shadow tree.
-2.  **Event Propagation Handling:** YouTube aggressively listens for keyboard shortcuts globally (like `Space` to pause/play, `f` for fullscreen, numbers to skip). This extension implements event interceptors and propagation blocks on inputs/textareas to ensure keyboard events inside the panel behave correctly.
-3.  **Vite Build Configuration:** Vite's default bundle format uses ES modules, which are not directly supported by standard Chrome content scripts. This project implements a custom double-build configuration (`vite.popup.config.js` and `vite.content.config.js`) to bundle the popup and compile the content script into an isolated IIFE format.
+```text
+                User opens YouTube
+                        │
+                        ▼
+          Content Script Injected
+                        │
+        ┌───────────────┴───────────────┐
+        │                               │
+        ▼                               ▼
+   Create Shadow DOM             Observe DOM Changes
+        │                               │
+        ▼                               ▼
+  Mount React App               MutationObserver
+        │                               │
+        ├──────────┬──────────┐         │
+        ▼          ▼          ▼         ▼
+     Notes     Pomodoro    Focus Mode  Hide Distractions
+                                         • Comments
+                                         • Recommendations
+                                         • End Screens
+                        │
+                        ▼
+               Enhanced Learning Experience
+```
 
 ## 📦 Tech Stack
 
@@ -39,7 +96,7 @@ Ensure you have [Node.js](https://nodejs.org/) installed (v16+ recommended).
 
 ### 2. Clone the Repository & Install Dependencies
 ```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/youtube-study-companion.git
+git clone https://github.com/DevKnight4/youtube-study-companion.git
 cd youtube-study-companion
 npm install
 ```
