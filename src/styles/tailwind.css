@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utilities for the glassmorphic panel inside shadow DOM */
+@layer components {
+  .glass-panel {
+    @apply bg-panel-bg backdrop-blur-md border border-panel-border rounded-xl shadow-2xl;
+  }
+  .tab-btn {
+    @apply px-4 py-2 text-sm font-medium transition-colors border-b-2 border-transparent hover:text-white hover:border-white text-gray-400;
+  }
+  .tab-btn-active {
+    @apply text-white border-white;
+  }
+}
