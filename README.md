@@ -76,5 +76,3 @@ This generates a `dist/` directory containing the production-ready code.
 └── package.json           # Scripts and dependencies
 ```
 
-## 📝 License
-Distributed under the MIT License. See `LICENSE` for more information.
